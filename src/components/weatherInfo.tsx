@@ -1,33 +1,30 @@
 import { StyleSheet, View, Text } from "react-native";
-import { Entypo, Feather, FontAwesome, Ionicons } from '@expo/vector-icons';
+import { AntDesign, Entypo, Feather, FontAwesome, Ionicons } from '@expo/vector-icons';
+import { useWeatherData } from "../hooks/weatherData";
 
 export function WeatherInfo() {
+    const {weatherData} = useWeatherData()
     return (
         <View style={styles.container} >
             <View style={styles.section} >
                 <FontAwesome name="thermometer-full" size={24} color="#F5C311" style={{margin:5}} />
                 <Text style={styles.title} >Sensação Termica</Text>
-                <Text style={styles.temperature}>22°c</Text>
-            </View>
-            <View style={styles.section} >
-                <Ionicons name="rainy" size={24} color="#f5c411" />
-                <Text style={styles.title}>Probabilidade de chuva</Text>
-                <Text style={styles.temperature}>22°c</Text>
+                <Text style={styles.temperature}>{parseInt(weatherData?.main?.feels_like)}°c</Text>
             </View>
             <View style={styles.section} >
                 <Feather name="wind" size={24} color="#F5C311" />
                 <Text style={styles.title}>Velocidade do vento</Text>
-                <Text style={styles.temperature}>22°c</Text>
+                <Text style={styles.temperature}>{parseInt(weatherData?.wind?.speed) } km/h</Text>
             </View>
             <View style={styles.section} >
                 <Entypo name="drop" size={24} color="#F5C311" />
                 <Text style={styles.title}>Umidade do ar</Text>
-                <Text style={styles.temperature}>22°c</Text>
+                <Text style={styles.temperature}>{weatherData?.main?.humidity}%</Text>
             </View>
             <View style={styles.section} >
-                <Feather name="sun" size={24} color="#F5C311" />
-                <Text style={styles.title}>Índice UV</Text>
-                <Text style={styles.temperature}>22°c</Text>
+                  <AntDesign name="cloud" size={24} color="#F5C311" />
+                <Text style={styles.title}>Nebulosidade</Text>
+                <Text style={styles.temperature}>{weatherData?.clouds?.all}%</Text>
             </View>
         </View>
     )

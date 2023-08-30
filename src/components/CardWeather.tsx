@@ -1,7 +1,19 @@
-// import {  } from "@gluestack-ui/react";
+
 import { Image, StyleSheet, Text, View } from "react-native";
+import { useWeatherData } from "../hooks/weatherData";
+import { useEffect, useState } from "react";
+import { ImagesWeatherType } from "./ImagesWeatherType";
 
 export function CardWeather() {
+    const { weatherData } = useWeatherData();
+    let iconUrl = "../../assets/images/01d.png";
+    // useEffect(()=>{
+    //     if(weatherData !== undefined){
+    //         let icon = `../../assets/images/${weatherData?.weather[0].icon}.png`
+    //         setIconUrl(icon)
+    //         console.log( "icons => ",icon)
+    //     }
+    // },[])
     return (
         <View style={styles.container}>
             <View style={styles.card} >
@@ -11,17 +23,20 @@ export function CardWeather() {
                 <View style={styles.content}>
                     <View style={styles.containerTemperature}>
                         <View style={styles.containerTemperatureCurrent}>
-                            <Text style={styles.contentTemperature}>30</Text>
+                            <Text style={styles.contentTemperature}>{parseInt(weatherData?.main?.temp)}</Text>
                             <Text style={styles.contentTemperatureType}>°c</Text>
                         </View>
                         <View style={styles.containerTemperatureCurrent}>
-                            <Text style={styles.contentTemperatureMinAndMax}>30°c / 28°c</Text>
+                            <Text style={styles.contentTemperatureMinAndMax}>{parseInt(weatherData?.main?.temp_max)}°c / {parseInt(weatherData?.main?.temp_min)}°c</Text>
                         </View>
 
 
                     </View>
+                    {
+                        weatherData !== undefined && <ImagesWeatherType iconID={weatherData?.weather[0].icon} />
+                    }
 
-                    <Image style={styles.img} resizeMode="contain" source={require('../../assets/images/fewcloudsnight.png')} />
+
 
                 </View>
             </View>
@@ -70,11 +85,12 @@ const styles = StyleSheet.create({
     },
     containerTemperature: {
         flexDirection: 'column',
+        alignItems:"center"
     },
     containerTemperatureCurrent: {
         flexDirection: 'row',
     },
-    contentTemperatureMinAndMax:{
+    contentTemperatureMinAndMax: {
         color: "white",
         fontSize: 20,
         fontWeight: "500"

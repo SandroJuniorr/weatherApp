@@ -6,7 +6,7 @@ export function WeatherDuringTheDayCard() {
             return (
                 <View style={styles.card}>
                     <Text style={styles.dateText} >Terça</Text>
-                    <Image style={styles.img} resizeMode="contain" source={require('../../assets/images/fewcloudsnight.png')} />
+                    {/* <Image style={styles.img} resizeMode="contain" source={require('../../assets/images/fewcloudsnight.png')} /> */}
 
 
                     <View style={styles.containerTemperature}>
